@@ -4,8 +4,9 @@ int main()
 {
 	string str;
 	std::cin >> str;
-	
-	std::cout << str + " new str" << "\n";
+	//str + " new str";
+	str = str + " new str";
+	std::cout << str + "s" << "\n";
 	std::cout << str << "\n";
 	return 0;
 }

@@ -1,5 +1,5 @@
 #include "string.h"
-#define ascending_factor 1.5f
+#define ascending_factor 2.0f
 #define descending_factor .7f
 
 string::string() { Default(); }
@@ -64,7 +64,7 @@ string& string::operator=(const char* str)
 
 string string::operator+(const string& str)
 {
-	string temp(_len);
+	string temp(*this);
 	strcat(temp, str._string);
 
 	return temp;
@@ -72,7 +72,7 @@ string string::operator+(const string& str)
 
 string string::operator+(const char* str)
 {
-	string temp(_len);
+	string temp(*this);
 	strcat(temp, str);
 
 	return temp;
@@ -135,21 +135,21 @@ void string::strcpy(const char* source)
 	_string[_len] = '\0';
 }
 
-void string::strcat(string dest, const char* source) const
+void string::strcat(string& dest, const char* source) const
 {
 	size_t len = dest._len + strlen(source);
 	dest._capacity = len * ascending_factor;
 
-	char* str = new char[_capacity];
+	char* str = new char[dest._capacity];
 	
 	for (size_t i = 0; i < dest._len; i++)
 	{
-		str[i] = dest[i];
+		str[i] = dest._string[i];
 	}
 
-	for (size_t i = _len; i < len; i++)
+	for (size_t i = dest._len, j = 0; i < len; i++, j++)
 	{
-		str[i] = source[i];
+		str[i] = source[j];
 	}
 	str[len] = '\0';
 

@@ -9,7 +9,7 @@ class string
 	void Default();
 	void Init(const string& str);
 	void strcpy(const char* source);
-	void strcat(string dest, const char* source) const;
+	void strcat(string& dest, const char* source) const;
 	void ResizeString(const float factor);
 
 public:
