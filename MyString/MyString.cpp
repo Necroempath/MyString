@@ -1,7 +1,12 @@
 #include <iostream>
-
+#include "string.h"
 int main()
 {
-    std::cout << "Hello World!\n";
+	string str;
+	std::cin >> str;
+	
+	std::cout << str + " new str" << "\n";
+	std::cout << str << "\n";
+	return 0;
 }
 
