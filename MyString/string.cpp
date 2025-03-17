@@ -12,7 +12,7 @@ string::string(const char* str)
 		return;
 	}
 
-	strcpy(str);
+	copy(str);
 }
 
 string::string(const size_t len)
@@ -33,14 +33,14 @@ string::string(const string& other)
 		return;
 	}
 
-	strcpy(other._string);
+	copy(other._string);
 }
 
 string::string(string&& other) noexcept { Init(other); other._string = nullptr; }
 
 string& string::operator=(const string& other)
 {
-	strcpy(other._string);
+	copy(other._string);
 	return *this;
 }
 
@@ -58,14 +58,14 @@ string& string::operator=(string&& other) noexcept
 
 string& string::operator=(const char* str)
 {
-	strcpy(str);
+	copy(str);
 	return *this;
 }
 
 string string::operator+(const string& str)
 {
 	string temp(*this);
-	strcat(temp, str._string);
+	concat(temp, str._string);
 
 	return temp;
 }
@@ -73,9 +73,19 @@ string string::operator+(const string& str)
 string string::operator+(const char* str)
 {
 	string temp(*this);
-	strcat(temp, str);
+	concat(temp, str);
 
 	return temp;
+}
+
+bool string::operator==(const string& str)
+{
+	return compare(str._string);
+}
+
+bool string::operator==(const char* str)
+{
+	return compare(str);
 }
 
 const char string::operator[](const size_t index) const
@@ -117,11 +127,20 @@ void string::Init(const string& str)
 	_capacity = str._capacity;
 }
 
-void string::strcpy(const char* source)
+size_t string::length(const char* str) const
+{
+	size_t size = 0;
+
+	while (str[size]) size++;
+
+	return size;
+}
+
+void string::copy(const char* source)
 {
 	if (_string == source || !source) return;
 
-	_len = strlen(source);
+	_len = length(source);
 	_capacity = _len * ascending_factor;
 
 	delete[] _string;
@@ -135,9 +154,9 @@ void string::strcpy(const char* source)
 	_string[_len] = '\0';
 }
 
-void string::strcat(string& dest, const char* source) const
+void string::concat(string& dest, const char* source) const
 {
-	size_t len = dest._len + strlen(source);
+	size_t len = dest._len + length(source);
 	dest._capacity = len * ascending_factor;
 
 	char* str = new char[dest._capacity];
@@ -158,6 +177,17 @@ void string::strcat(string& dest, const char* source) const
 	dest._string = str;
 }
 
+bool string::compare(const char* str) const
+{
+	if (_len != length(str)) return 0;
+
+	for (size_t i = 0; i < _len; i++)
+	{
+		if (_string[i] != str[i]) return 0;
+	}
+	return 1;
+}
+
 void string::ResizeString(const float factor)
 {
 	_capacity *= factor;
@@ -173,20 +203,11 @@ void string::ResizeString(const float factor)
 	_string = temp;
 }
 
-size_t string::Lenght() { return _len; }
+size_t string::GetLen() { return _len; }
 
 string::~string()
 {
 	delete[] _string;
-}
-
-size_t strlen(const char* str)
-{
-	size_t size = 0;
-
-	while (str[size]) size++;
-
-	return size;
 }
 
 

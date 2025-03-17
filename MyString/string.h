@@ -8,8 +8,10 @@ class string
 
 	void Default();
 	void Init(const string& str);
-	void strcpy(const char* source);
-	void strcat(string& dest, const char* source) const;
+	size_t length(const char* str) const;
+	void copy(const char* source);
+	void concat(string& dest, const char* source) const;
+	bool compare(const char* str) const;
 	void ResizeString(const float factor);
 
 public:
@@ -33,6 +35,10 @@ public:
 
 	string operator+(const char* str);
 
+	bool operator==(const string& str);
+
+	bool operator==(const char* str);
+
 	const char operator[](const size_t index) const;
 
 	char& operator[](size_t index);
@@ -41,10 +47,7 @@ public:
 
 	friend std::istream& operator>>(std::istream& is, string& str);
 
-	size_t Lenght();
+	size_t GetLen();
 
 	~string();
 };
-
-size_t strlen(const char* str);
-

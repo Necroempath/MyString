@@ -4,10 +4,12 @@ int main()
 {
 	string str;
 	std::cin >> str;
-	//str + " new str";
-	str = str + " new str";
-	std::cout << str + "s" << "\n";
-	std::cout << str << "\n";
+	string str1("asd");
+	//bool cmp = str == str1;
+	std::cout << (str == str1);
+	std::cout << (str == "asd");
+	std::cout << (str == "asD");
+	//std::cout << str << "\n";
 	return 0;
 }
 
