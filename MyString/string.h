@@ -11,6 +11,7 @@ class string
 	size_t length(const char* str) const;
 	void copy(const char* source);
 	void concat(string& dest, const char* source) const;
+	void repeat(const char* source, const short count);
 	bool compare(const char* str) const;
 	void ResizeString(const float factor);
 
@@ -38,6 +39,8 @@ public:
 	bool operator==(const string& str);
 
 	bool operator==(const char* str);
+
+	string operator*(const size_t count);
 
 	const char operator[](const size_t index) const;
 

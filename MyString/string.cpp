@@ -78,6 +78,13 @@ string string::operator+(const char* str)
 	return temp;
 }
 
+string string::operator*(const size_t count)
+{
+	string temp(*this);
+	repeat(_string, count);
+	return temp;
+}
+
 bool string::operator==(const string& str)
 {
 	return compare(str._string);
@@ -175,6 +182,22 @@ void string::concat(string& dest, const char* source) const
 	dest._len = len;
 	delete[] dest._string;
 	dest._string = str;
+}
+
+void string::repeat(const char* source, const short count)
+{
+	size_t len = length(source);
+	_len = len * count;
+	_capacity = _len * ascending_factor;
+
+	char* str = new char[_capacity];
+
+	for (size_t i = 0; i < _len; i++)
+	{
+		_string[i] = source[i % len];
+	}
+
+	_string[_len] = '\0';
 }
 
 bool string::compare(const char* str) const
