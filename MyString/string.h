@@ -9,10 +9,12 @@ class string
 	void Default();
 	void Init(const string& str);
 	size_t length(const char* str) const;
-	void copy(const char* source);
+	void copy(string& dest, const char* source) const;
 	void concat(string& dest, const char* source) const;
-	void repeat(const char* source, const short count);
+	void repeat(string& dest, const char* source, const short count) const;
 	bool compare(const char* str) const;
+	long find(const char* str) const;
+	void remove(const size_t index, const size_t len);
 	void ResizeString(const float factor);
 
 public:
@@ -32,15 +34,21 @@ public:
 
 	string& operator=(const char* str);
 
-	string operator+(const string& str);
+	string operator+(const string& str) const;
 
-	string operator+(const char* str);
+	string operator+(const char* str) const;
 
-	bool operator==(const string& str);
+	string& operator+=(const string& str);
 
-	bool operator==(const char* str);
+	string& operator+=(const char* str);
 
-	string operator*(const size_t count);
+	bool operator==(const string& str) const;
+
+	bool operator==(const char* str) const;
+
+	string operator*(const size_t count) const;
+
+	string& operator*=(const size_t count);
 
 	const char operator[](const size_t index) const;
 
@@ -51,6 +59,18 @@ public:
 	friend std::istream& operator>>(std::istream& is, string& str);
 
 	size_t GetLen();
+
+	long Find(const char value) const;
+
+	long Find(const char* str) const;
+
+	long Find(const string& str) const;
+
+	bool Remove(const char value);
+
+	bool Remove(const char* str);
+
+	bool Remove(const string& str);
 
 	~string();
 };
