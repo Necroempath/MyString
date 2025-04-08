@@ -319,10 +319,9 @@ bool string::Remove(const string& str)
 	return 1;
 }
 
+const char* string::c_str() const { return _string; }
+
 string::~string()
 {
 	delete[] _string;
 }
-
-
-

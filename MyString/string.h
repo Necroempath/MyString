@@ -72,5 +72,7 @@ public:
 
 	bool Remove(const string& str);
 
+	const char* c_str() const;
+
 	~string();
 };
