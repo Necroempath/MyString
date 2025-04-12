@@ -20,7 +20,7 @@ class string
 public:
 	string();
 
-	explicit string(const char* str);
+	string(const char* str);
 
 	explicit string(const size_t len);
 
