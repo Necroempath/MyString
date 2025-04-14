@@ -137,7 +137,7 @@ std::istream& operator>>(std::istream& is, string& str)
 
 void string::Default()
 {
-	_string = '\0';
+	_string[0] = '\0';
 	_len = 0;
 	_capacity = 0;
 }
