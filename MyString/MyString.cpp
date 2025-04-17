@@ -9,7 +9,6 @@ int main()
 	char val = 'ar';
 	str.Remove(str1);
 	std::cout << str;
-	std::string().
 	//string str1("asd");
 	//bool cmp = str == str1;
 	//std::cout << str * 3;

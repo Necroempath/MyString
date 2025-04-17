@@ -1,6 +1,6 @@
 #include "string.h"
-#define ascending_factor 2.0f
-#define descending_factor .5f
+#define ascending_factor 1.5f
+#define descending_factor .7f
 
 string::string() { Default(); }
 
@@ -15,14 +15,9 @@ string::string(const char* str)
 	copy(*this, str);
 }
 
-string::string(const size_t len)
+string::string(const size_t len) : _len(len), _capacity(_len* ascending_factor + 1)
 {
-	if (len > 0) {
-		_len = len;
-		_capacity = _len * ascending_factor;
-		_string = new char[_capacity];
-	}
-	else Default();
+	_string = new char[_capacity];
 }
 
 string::string(const string& other)
@@ -139,7 +134,7 @@ void string::Default()
 {
 	_string = new char[1] {'\0'};
 	_len = 0;
-	_capacity = 0;
+	_capacity = CAPACITY;
 }
 
 void string::Init(const string& str)
