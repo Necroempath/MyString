@@ -2,8 +2,8 @@
 #include "string.h"
 int main()
 {
-	string str ("baggar");
-	string str1 ("gg");
+	String str ("baggar");
+	String str1 ("gg");
 	//string str1;
 	//std::cin >> str1;
 	char val = 'ar';

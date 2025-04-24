@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-class string
+class String
 {
 	char* _string;
 	size_t _len;
@@ -9,56 +9,56 @@ class string
 	static constexpr size_t CAPACITY = 10;
 
 	void Default();
-	void Init(const string& str);
+	void Init(const String& str);
 	size_t length(const char* str) const;
-	void copy(string& dest, const char* source) const;
-	void concat(string& dest, const char* source) const;
-	void repeat(string& dest, const char* source, const short count) const;
+	void copy(String& dest, const char* source) const;
+	void concat(String& dest, const char* source) const;
+	void repeat(String& dest, const char* source, const short count) const;
 	bool compare(const char* str) const;
 	long find(const char* str) const;
 	void remove(const size_t index, const size_t len);
 	void ResizeString(const float factor);
 
 public:
-	string();
+	String();
 
-	string(const char* str);
+	String(const char* str);
 
-	explicit string(const size_t len);
+	explicit String(const size_t len);
 
-	string(const string& other);
+	String(const String& other);
 
-	string(string&& other) noexcept;
+	String(String&& other) noexcept;
 
-	string& operator=(const string& other);
+	String& operator=(const String& other);
 
-	string& operator=(string&& other) noexcept;
+	String& operator=(String&& other) noexcept;
 
-	string& operator=(const char* str);
+	String& operator=(const char* str);
 
-	string operator+(const string& str) const;
+	String operator+(const String& str) const;
 
-	string operator+(const char* str) const;
+	String operator+(const char* str) const;
 
-	string& operator+=(const string& str);
+	String& operator+=(const String& str);
 
-	string& operator+=(const char* str);
+	String& operator+=(const char* str);
 
-	bool operator==(const string& str) const;
+	bool operator==(const String& str) const;
 
 	bool operator==(const char* str) const;
 
-	string operator*(const size_t count) const;
+	String operator*(const size_t count) const;
 
-	string& operator*=(const size_t count);
+	String& operator*=(const size_t count);
 
 	const char operator[](const size_t index) const;
 
 	char& operator[](size_t index);
 
-	friend std::ostream& operator<<(std::ostream& os, const string& str);
+	friend std::ostream& operator<<(std::ostream& os, const String& str);
 
-	friend std::istream& operator>>(std::istream& is, string& str);
+	friend std::istream& operator>>(std::istream& is, String& str);
 
 	size_t GetLen();
 
@@ -66,15 +66,15 @@ public:
 
 	long Find(const char* str) const;
 
-	long Find(const string& str) const;
+	long Find(const String& str) const;
 
 	bool Remove(const char value);
 
 	bool Remove(const char* str);
 
-	bool Remove(const string& str);
+	bool Remove(const String& str);
 
 	const char* c_str() const;
 
-	~string();
+	~String();
 };

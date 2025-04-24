@@ -2,9 +2,9 @@
 #define ascending_factor 1.5f
 #define descending_factor .7f
 
-string::string() { Default(); }
+String::String() { Default(); }
 
-string::string(const char* str)
+String::String(const char* str)
 {
 	if (!str)
 	{
@@ -15,12 +15,12 @@ string::string(const char* str)
 	copy(*this, str);
 }
 
-string::string(const size_t len) : _len(len), _capacity(_len* ascending_factor + 1)
+String::String(const size_t len) : _len(len), _capacity(_len* ascending_factor + 1)
 {
 	_string = new char[_capacity];
 }
 
-string::string(const string& other)
+String::String(const String& other)
 {
 	if (!other._string)
 	{
@@ -31,15 +31,15 @@ string::string(const string& other)
 	copy(*this, other._string);
 }
 
-string::string(string&& other) noexcept { Init(other); other._string = nullptr; }
+String::String(String&& other) noexcept { Init(other); other._string = nullptr; }
 
-string& string::operator=(const string& other)
+String& String::operator=(const String& other)
 {
 	copy(*this, other._string);
 	return *this;
 }
 
-string& string::operator=(string&& other) noexcept
+String& String::operator=(String&& other) noexcept
 {
 	if (this == &other || !other._string) return *this;
 
@@ -49,102 +49,102 @@ string& string::operator=(string&& other) noexcept
 	return *this;
 }
 
-string& string::operator=(const char* str)
+String& String::operator=(const char* str)
 {
 	copy(*this, str);
 	return *this;
 }
 
-string string::operator+(const string& str) const
+String String::operator+(const String& str) const
 {
-	string temp(*this);
+	String temp(*this);
 	concat(temp, str._string);
 	
 	return temp;
 }
 
-string string::operator+(const char* str) const
+String String::operator+(const char* str) const
 {
-	string temp(*this);
+	String temp(*this);
 	concat(temp, str);
 
 	return temp;
 }
 
-string& string::operator+=(const string& str)
+String& String::operator+=(const String& str)
 {
 	*this = *this + str;
 	return *this;
 }
 
-string& string::operator+=(const char* str)
+String& String::operator+=(const char* str)
 {
 	*this = *this + str;
 	return *this;
 }
 
-string string::operator*(const size_t count) const
+String String::operator*(const size_t count) const
 {
-	string temp(*this);
+	String temp(*this);
 	repeat(temp, _string, count);
 	return temp;
 }
 
-string& string::operator*=(const size_t count)
+String& String::operator*=(const size_t count)
 {
 	repeat(*this, _string, count);
 	return *this;
 }
 
-bool string::operator==(const string& str) const
+bool String::operator==(const String& str) const
 {
 	return compare(str._string);
 }
 
-bool string::operator==(const char* str) const
+bool String::operator==(const char* str) const
 {
 	return compare(str);
 }
 
-const char string::operator[](const size_t index) const
+const char String::operator[](const size_t index) const
 {
 	if (index >= 0 && index < _len)	return _string[index];
 }
 
-char& string::operator[](size_t index)
+char& String::operator[](size_t index)
 {
 	if (index >= 0 && index < _len)	return _string[index];
 }
 
-std::ostream& operator<<(std::ostream& os, const string& str)
+std::ostream& operator<<(std::ostream& os, const String& str)
 {
 	os << str._string;
 	return os;
 }
 
-std::istream& operator>>(std::istream& is, string& str)
+std::istream& operator>>(std::istream& is, String& str)
 {
 	char* buffer = new char[100];
 	is >> buffer;
-	str = string(buffer);
+	str = String(buffer);
 	return is;
 }
 
-void string::Default()
+void String::Default()
 {
 	_string = new char[1] {'\0'};
 	_len = 0;
 	_capacity = CAPACITY;
 }
 
-void string::Init(const string& str)
+void String::Init(const String& str)
 {
 	_string = str._string;
 	_len = str._len;
 	_capacity = str._capacity;
 }
 
-size_t string::length(const char* str) const
+size_t String::length(const char* str) const
 {
 	size_t size = 0;
 
@@ -153,7 +153,7 @@ size_t string::length(const char* str) const
 	return size;
 }
 
-void string::copy(string& dest, const char* source) const
+void String::copy(String& dest, const char* source) const
 {
 	if (_string == source || !source) return;
 
@@ -169,7 +169,7 @@ void string::copy(string& dest, const char* source) const
 	dest._string[_len] = '\0';
 }
 
-void string::concat(string& dest, const char* source) const
+void String::concat(String& dest, const char* source) const
 {
 	size_t source_len = dest._len + length(source);
 	dest._len += source_len;
@@ -189,7 +189,7 @@ void string::concat(string& dest, const char* source) const
 	dest._string[source_len] = '\0';
 }
 
-void string::repeat(string& dest, const char* source, const short count) const
+void String::repeat(String& dest, const char* source, const short count) const
 {
 	if (count < 0) return;
 	if (count == 0) { dest.Default(); return; }
@@ -208,7 +208,7 @@ void string::repeat(string& dest, const char* source, const short count) const
 	dest._string[dest._len] = '\0';
 }
 
-bool string::compare(const char* str) const
+bool String::compare(const char* str) const
 {
 	if (_len != length(str)) return 0;
 
@@ -219,7 +219,7 @@ bool string::compare(const char* str) const
 	return 1;
 }
 
-long string::find(const char* str) const
+long String::find(const char* str) const
 {
 	size_t str_len = length(str);
 
@@ -235,7 +235,7 @@ long string::find(const char* str) const
 	return -1;
 }
 
-void string::remove(const size_t index, const size_t len)
+void String::remove(const size_t index, const size_t len)
 {
 	for (size_t i = index; i < _len - len; i++)
 	{
@@ -247,7 +247,7 @@ void string::remove(const size_t index, const size_t len)
 	if (_capacity * descending_factor >= _len) ResizeString(descending_factor);
 }
 
-void string::ResizeString(const float factor)
+void String::ResizeString(const float factor)
 {
 	_capacity *= factor;
 
@@ -263,9 +263,9 @@ void string::ResizeString(const float factor)
 	_string = temp;
 }
 
-size_t string::GetLen() { return _len; }
+size_t String::GetLen() { return _len; }
 
-long string::Find(const char value) const
+long String::Find(const char value) const
 {
 	for (size_t i = 0; i < _len; i++)
 	{
@@ -275,17 +275,17 @@ long string::Find(const char value) const
 	return -1;
 }
 
-long string::Find(const char* str) const
+long String::Find(const char* str) const
 {
 	return (find(str));
 }
 
-long string::Find(const string& str) const
+long String::Find(const String& str) const
 {
 	return (find(str._string));
 }
 
-bool string::Remove(const char value)
+bool String::Remove(const char value)
 {
 	size_t index = Find(value);
 	if (index < 0) return 0;
@@ -294,7 +294,7 @@ bool string::Remove(const char value)
 	return 1;
 }
 
-bool string::Remove(const char* str)
+bool String::Remove(const char* str)
 {
 	size_t index = Find(str);
 
@@ -304,7 +304,7 @@ bool string::Remove(const char* str)
 	return 1;
 }
 
-bool string::Remove(const string& str)
+bool String::Remove(const String& str)
 {
 	size_t index = Find(str);
 
@@ -314,9 +314,9 @@ bool string::Remove(const string& str)
 	return 1;
 }
 
-const char* string::c_str() const { return _string; }
+const char* String::c_str() const { return _string; }
 
-string::~string()
+String::~String()
 {
 	delete[] _string;
 }
